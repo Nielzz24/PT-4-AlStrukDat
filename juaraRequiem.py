@@ -1,6 +1,46 @@
 def sortPeserta(peserta):
-    # Kerjakan di sini yaw
-    pass
+    
+    def merge(left, right):
+        merged = []
+        i = j = 0
+        while i < len(left) and j < len(right):
+            l = left[i]
+            r = right[j]
+           
+            if l['total'] > r['total']:
+                merged.append(l)
+                i += 1
+            elif l['total'] < r['total']:
+                merged.append(r)
+                j += 1
+            else:
+                
+                if l['penonton'] >= r['penonton']:
+                    merged.append(l)
+                    i += 1
+                else:
+                    merged.append(r)
+                    j += 1
+
+        
+        while i < len(left):
+            merged.append(left[i])
+            i += 1
+        while j < len(right):
+            merged.append(right[j])
+            j += 1
+
+        return merged
+
+    def merge_sort(arr):
+        if len(arr) <= 1:
+            return arr
+        mid = len(arr) // 2
+        left = merge_sort(arr[:mid])
+        right = merge_sort(arr[mid:])
+        return merge(left, right)
+
+    return merge_sort(peserta)
 
 
 # Program Utama - Jangan di Hapus
